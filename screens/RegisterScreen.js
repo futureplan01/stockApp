@@ -1,14 +1,15 @@
 
 import React, { useState } from 'react';
-import { Platform, Text,TextInput, Button, StyleSheet, View } from 'react-native';
-import AppNavigator from './navigation/AppNavigator';
-const stylish = require('./assets/styles/Stylish');
+import {  Text,TextInput, Button, View } from 'react-native';
+const stylish = require('../assets/styles/Stylish');
+
 
 export default function App(props) {
-  return (<View>
-    <Text style={{color:'#1e90ff',marginTop:40,textAlign:'center', fontSize: 40}}>
+  return (<View styles={{marginTop: 80}}>
+    <Text style={{color:'#1e90ff',marginTop:70,textAlign:'center', fontSize: 40}}>
         Register
       </Text>
+      <View style={{marginTop: 80}}>
       <TextInput
         style={stylish.input}
         placeholder = 'Name'
@@ -23,7 +24,9 @@ export default function App(props) {
         secureTextEntry ={true}
       />
       <Button
-        Register
+        style={{marginTop: 40}}
+        title='Register'
       />
+      </View>
     </View>)
 }
