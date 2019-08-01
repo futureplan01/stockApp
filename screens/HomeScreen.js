@@ -1,38 +1,80 @@
 import { AppLoading } from 'expo';
 import { Asset } from 'expo-asset';
 import * as Font from 'expo-font';
-import React, { useState } from 'react';
+import axios from 'axios';
+import React, { Component } from 'react';
 import { Button, Text,TextInput, StyleSheet, View } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
-
 const stylish = require('../assets/styles/Stylish');
 
-export default function (props) {
+class HomeScreen extends Component{
+  constructor(props){
+    super(props)
 
-  return (<View styles={{marginTop: 80}}>
-    <Text style={{color:'#1e90ff',marginTop:70,textAlign:'center', fontSize: 40}}>
-        Sign In
+    this.state = {
+      email: '',
+      password: '',
+      error: false
+    }
+    this.onSubmit = this.onSubmit.bind(this);
+  }
+  
+  onSubmit(){
+    axios.post('https://my-stock-app.herokuapp.com/SignIn',{
+      crossDomain:true,
+      email: this.state.email.toLowerCase(),
+      password: this.state.password
+  })
+  .then((user)=>{
+      if(user){
+        console.log("SUCCESS");
+        this.props.navigation.navigate('Register')
+      }
+  }).catch((err)=>{
+    console.log("FAILURE");
+    this.setState({error: true});
+  })
+  }
+
+  render(){
+    let ErrorMessage;
+    if(this.state.error){
+      ErrorMessage = <Text styles = {{color:'red', textAlign:'center'}}> 
+        Wrong Email or Password
       </Text>
-      <View style={{marginTop: 120}}>
-      <TextInput
-        style={stylish.input}
-        placeholder = 'Email'
-      />
-      <TextInput
-        style={stylish.input}
-        placeholder = 'Password'
-        secureTextEntry ={true}
-      />
-      <Button
-        style={{marginTop: 40}}
-        title='Sign In'
-      />
-      </View>
-      <Text style ={{textAlign:'center', color: 'purple'}}
-        onPress ={()=>{props.navigation.navigate('Register')}}
-      > 
-        Register
-      </Text>
-    </View>)
+    }
+    return (<View styles={{marginTop: 80}}>
+      <Text style={{color:'#1e90ff',marginTop:70,textAlign:'center', fontSize: 40}}>
+          Sign In
+        </Text>
+        {ErrorMessage}
+        <View style={{marginTop: 120}}>
+        <TextInput
+          style={stylish.input}
+          placeholder = 'Email'
+          onChangeText = {(value)=>{this.setState({email: value})}}
+        />
+        <TextInput
+          style={stylish.input}
+          placeholder = 'Password'
+          onChangeText = {(value)=>{this.setState({password: value})}}
+          secureTextEntry ={true}
+        />
+        <Button
+          style={{marginTop: 40}}
+          title='Sign In'
+          onPress = {this.onSubmit}
+        />
+        </View>
+        <Text style ={{textAlign:'center', color: 'purple'}}
+          onPress ={()=>{props.navigation.navigate('Register')}}
+        > 
+          Register
+        </Text>
+      </View>)
+  }
 }
+
+
+export default HomeScreen
 

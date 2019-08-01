@@ -7,11 +7,6 @@ import RegisterScreen from '../screens/RegisterScreen';
 import PortfolioScreen from '../screens/PortfolioScreen';
 import TransactionScreen from '../screens/TransactionScreen';
 
-/*Don't use this */
-import TabBarIcon from '../components/TabBarIcon';
-import LinksScreen from '../screens/LinksScreen';
-import SettingsScreen from '../screens/SettingsScreen';
-
 
 const Navigation = createStackNavigator({
   Home: {
