@@ -27,11 +27,12 @@ class HomeScreen extends Component{
   })
   .then((user)=>{
       if(user){
-        console.log("SUCCESS");
-        this.props.navigation.navigate('Register')
+        this.props.navigation.navigate('Register',{
+          userInfo: user.data
+        });
       }
   }).catch((err)=>{
-    console.log("FAILURE");
+    console.log(err);
     this.setState({error: true});
   })
   }
@@ -39,7 +40,7 @@ class HomeScreen extends Component{
   render(){
     let ErrorMessage;
     if(this.state.error){
-      ErrorMessage = <Text styles = {{color:'red', textAlign:'center'}}> 
+      ErrorMessage = <Text style={{color:'red', textAlign:'center'}}> 
         Wrong Email or Password
       </Text>
     }
@@ -67,7 +68,7 @@ class HomeScreen extends Component{
         />
         </View>
         <Text style ={{textAlign:'center', color: 'purple'}}
-          onPress ={()=>{props.navigation.navigate('Register')}}
+          onPress ={()=>{this.props.navigation.navigate('Register')}}
         > 
           Register
         </Text>
