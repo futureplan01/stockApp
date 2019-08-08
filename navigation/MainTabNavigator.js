@@ -10,11 +10,14 @@ import TransactionScreen from '../screens/TransactionScreen';
 
 const Navigation = createStackNavigator({
   Home: {
-    screen: HomeScreen
+    screen: PortfolioScreen
   },
   Register:{
     screen: RegisterScreen
   },
+  Portfolio:{
+    screen: PortfolioScreen
+  }
 
 }
 
