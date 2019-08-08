@@ -13,7 +13,6 @@ class PortfolioScreen extends Component{
         axios.get('https://api.iextrading.com/1.0/tops/last')
         .then((value)=>{
             this.setState({stocks: value.data});
-            console.log()
         })
         .catch((err)=>{
             console.log("Error: "  + err);
@@ -27,15 +26,19 @@ class PortfolioScreen extends Component{
     render(){
         return(
             <View> 
-                <Text style = {{backgroundColor: '#1e90ff', color: 'white'}}>Stocks</Text>
-                <ScrollView> 
+                <Text style = {{backgroundColor: '#1e90ff', color: 'white', textAlign:'center'}}>Stocks</Text>
+                <ScrollView style= {{height: 120}}> 
                     {this.state.stocks.map((stock,num)=>{
-                        console.log(stock);
                        return( <Text key = {num}> 
                             {stock.Click} {stock.symbol} {stock.price}
                         </Text>)
                     })}
                 </ScrollView>
+                <View>
+                    <Text style= {{backgroundColor: '#1e90ff', width:'full',color:'white',position: 'absolute',bottom: 0,textAlign:'center'}}>
+                        Footer
+                    </Text>
+                </View>
             </View>
         )
     }
